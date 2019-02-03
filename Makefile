@@ -245,6 +245,18 @@ install: install-manager
 	@echo
 	@echo "Installation for users finished."
 
+install-local-openzwave
+    cd openzwave && $(MAKE) -j 4
+    ${PYTHON_EXEC} setup-lib.py install --flavor=dev
+    @echo
+    @echo "Installation of lib finished."
+    ${PYTHON_EXEC} setup-api.py install --flavor=dev
+    @echo
+    @echo "Installation of manager finished."
+    ${PYTHON_EXEC} setup-manager.py install
+    @echo
+    @echo "Installation for users finished."
+
 develop: src-lib/libopenzwave/libopenzwave.cpp
 	${PYTHON_EXEC} setup-lib.py develop --flavor=dev
 	${PYTHON_EXEC} setup-api.py develop
