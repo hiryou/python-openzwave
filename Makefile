@@ -60,6 +60,7 @@ help:
 	@echo "  commit          : publish python-openzwave updates on GitHub"
 	@echo "  clean           : clean the development directory"
 	@echo "  update          : update sources of python-openzwave and openzwave"
+	@echo "  install-local-openzwave : install python-openzwave with --flavor=dev, using local lib at ./openzwave"
 
 clean: clean-docs clean-archive
 	-rm -rf $(BUILDDIR)
@@ -245,17 +246,14 @@ install: install-manager
 	@echo
 	@echo "Installation for users finished."
 
-install-local-openzwave
-    cd openzwave && $(MAKE) -j 4
-    ${PYTHON_EXEC} setup-lib.py install --flavor=dev
-    @echo
-    @echo "Installation of lib finished."
-    ${PYTHON_EXEC} setup-api.py install --flavor=dev
-    @echo
-    @echo "Installation of manager finished."
-    ${PYTHON_EXEC} setup-manager.py install
-    @echo
-    @echo "Installation for users finished."
+install-local-openzwave:
+	cd openzwave && $(MAKE) -j 4
+	${PYTHON_EXEC} setup-lib.py install --flavor=dev
+	@echo
+	@echo "Installation of lib finished."
+	${PYTHON_EXEC} setup-api.py install --flavor=dev
+	@echo
+	@echo "Installation of API finished."
 
 develop: src-lib/libopenzwave/libopenzwave.cpp
 	${PYTHON_EXEC} setup-lib.py develop --flavor=dev
