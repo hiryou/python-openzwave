@@ -514,7 +514,7 @@ cdef void notif_callback(const_notification _notification, void* _context) with 
              'nodeId' : notification.GetNodeId(),
             }
     except:
-        logger.exception("notif_callback exception")
+        logger.exception("notif_callback exception: %s", notification.GetType())
     if notification.GetType() == Type_Group:
         try:
             n['groupIdx'] = notification.GetGroupIdx()
